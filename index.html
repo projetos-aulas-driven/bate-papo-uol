@@ -5,18 +5,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bate Papo UOL</title>
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <!-- style -->
   <link rel="stylesheet" href="reset.css">
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1>Bate Papo UOL</h1>
+  <header>
+    <img src="logo.png">
+    <ion-icon name="people-sharp"></ion-icon>
+  </header>
 
+  <main>
+    <ul class="messages-container">
+      <!-- will be replaced by messages from the server-->
+    </ul>
+  </main>
 
+  <footer>
+    <div class="message-input">
+      <input placeholder="Escreva aqui..." class="message-text"></input>
+      <span class="enviando">Enviando para Todos (público)</span>
+    </div>
+    <div onclick="sendMessage()">
+      <ion-icon name="paper-plane-outline"></ion-icon>
+    </div>
+  </footer>
 
-
-
-  <!-- javascript -->
+  <!-- scripts -->
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="script.js"></script>
 </body>

@@ -46,12 +46,45 @@ function pingServer() {
 function syncMessages() {
   const promise = axios.get(`${BACK_END_API}/messages/${MY_UUID}`);
   promise.then(({ data: messages }) => {
-    console.log(messages);
+    renderMessages(messages);
   });
   promise.catch(err => {
     console.log(err.response.data);
     alert("Ocorreu um erro ao sincronizar com o servidor!");
   });
+}
+
+function renderMessages(messages) {
+  const messagesElement = document.querySelector(".messages-container");
+  messagesElement.innerHTML = "";
+
+  messages.map(message => {
+    const { type, time, from, to, text } = message;
+    if (type === 'message') {
+      return `
+            <li class="conversa-publica">
+                <span class="horario">${time}</span>
+                    <strong>${from}</strong>
+                        <span> para </span>
+                    <strong>${to}: </strong>
+                <span>${text}</span>
+            </li>
+        `;
+    } else if (type === 'status') {
+      return `
+            <li class="entrada-saida">
+                <span class="horario">${time}</span>
+                <strong>${from}</strong>          
+                <span>${text}</span>            
+            </li>            
+        `;
+    }
+  }).forEach(li => {
+    messagesElement.innerHTML += li;
+  });
+
+  const lastMessage = document.querySelector('.messages-container li:last-child');
+  lastMessage.scrollIntoView();
 }
 
 function getParticipants() {
@@ -66,15 +99,20 @@ function getParticipants() {
 }
 
 function sendMessage() {
+  const messageInputText = document.querySelector(".message-text");
+
   const message = {
     from: username,
-    to: "nome do destinatário (Todos se não for um específico)",
-    text: "mensagem digitada",
-    type: "message" // ou "private_message"
+    to: "Todos",
+    text: messageInputText.value,
+    type: "message"
   };
 
   const promise = axios.post(`${BACK_END_API}/messages/${MY_UUID}`, message);
-  promise.then(response => syncMessages());
+  promise.then(response => {
+    syncMessages();
+    messageInputText.value = "";
+  });
   promise.catch(err => {
     if (err.response.status === 400) {
       alert('Sua mensagem não foi enviada pois seu usuário foi desconectado, tente conectar novamente!');
