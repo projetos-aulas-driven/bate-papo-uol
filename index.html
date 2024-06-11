@@ -15,9 +15,31 @@
 </head>
 
 <body>
+
+  <!-- ativar para o bônus (lateral) -->
+  <div class="menu-fundo escondido" onclick="toogleMenu()"></div>
+  <aside class="menu escondido">
+    <h3 class="titulo-menu">Escolha um contato para enviar mensagem:</h3>
+    <ul class="contatos"><!-- preenchido via js --></ul>
+    <h3 class="titulo-menu">Escolha a visibilidade:</h3>
+    <ul class="visibilidades">
+      <li class="visibilidade-publico selecionado">
+        <ion-icon name="lock-open"></ion-icon>Público<ion-icon class="check" name="checkmark-outline">
+        </ion-icon>
+      </li>
+      <li class="visibilidade-privado">
+        <ion-icon name="lock-closed"></ion-icon>Reservadamente<ion-icon class="check" name="checkmark-outline">
+        </ion-icon>
+      </li>
+    </ul>
+  </aside>
+
+
   <header>
     <img src="logo.png">
-    <ion-icon name="people-sharp"></ion-icon>
+    <div class="participants" onclick="openSideMenu()">
+      <ion-icon name="people-sharp"></ion-icon>
+    </div>
   </header>
 
   <main>

@@ -90,6 +90,15 @@ function renderMessages(messages) {
 function getParticipants() {
   const promise = axios.get(`${BACK_END_API}/participants/${MY_UUID}`);
   promise.then(({ data: participants }) => {
+    const contactsDiv = document.querySelector(".contatos");
+
+    contactsDiv.innerHTML = `<li><ion-icon name="people-sharp"></ion-icon> Todos</li>`;
+    participants.map(participant => {
+      return `<li><ion-icon name="person-circle"></ion-icon> ${participant.name}</li>`
+    }).forEach(li => {
+      contactsDiv.innerHTML += li;
+    });
+
     console.log(participants);
   });
   promise.catch(err => {
@@ -122,6 +131,16 @@ function sendMessage() {
     }
   });
 
+}
+
+function openSideMenu() {
+  toogleMenu();
+  getParticipants();
+}
+
+function toogleMenu() {
+  document.querySelector(".menu-fundo").classList.toggle("escondido");
+  document.querySelector(".menu").classList.toggle("escondido");
 }
 
 enterChat();
