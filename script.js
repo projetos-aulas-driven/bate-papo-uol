@@ -7,6 +7,9 @@ let username;
 let idIntervalPing;
 let idIntervalSync;
 
+let visibility = "message"; // "private_message"
+let recipient = "Todos";
+
 function enterChat() {
   enterUsername();
   const promise = axios.post(`${BACK_END_API}/participants/${MY_UUID}`, { name: username });
@@ -58,6 +61,8 @@ function renderMessages(messages) {
   const messagesElement = document.querySelector(".messages-container");
   messagesElement.innerHTML = "";
 
+  console.log(messages);
+
   messages.map(message => {
     const { type, time, from, to, text } = message;
     if (type === 'message') {
@@ -78,6 +83,16 @@ function renderMessages(messages) {
                 <span>${text}</span>            
             </li>            
         `;
+    } else if (type === "private_message") {
+      return `
+            <li class="conversa-privada">
+                <span class="horario">${time}</span>
+                    <strong>${from}</strong>
+                        <span> para </span>
+                    <strong>${to}: </strong>
+                <span>${text}</span>
+            </li>
+        `;
     }
   }).forEach(li => {
     messagesElement.innerHTML += li;
@@ -92,14 +107,22 @@ function getParticipants() {
   promise.then(({ data: participants }) => {
     const contactsDiv = document.querySelector(".contatos");
 
-    contactsDiv.innerHTML = `<li><ion-icon name="people-sharp"></ion-icon> Todos</li>`;
+    contactsDiv.innerHTML =
+      `<li onclick="changeRecipient(this)" class="selecionado">
+        <ion-icon name="people-sharp"></ion-icon> 
+        Todos 
+        <ion-icon class="check" name="checkmark-outline">
+      </li>`;
     participants.map(participant => {
-      return `<li><ion-icon name="person-circle"></ion-icon> ${participant.name}</li>`
+      return `
+        <li onclick="changeRecipient(this)">
+          <ion-icon name="person-circle"></ion-icon> 
+          ${participant.name}
+          <ion-icon class="check" name="checkmark-outline">
+        </li>`
     }).forEach(li => {
       contactsDiv.innerHTML += li;
     });
-
-    console.log(participants);
   });
   promise.catch(err => {
     console.log(err.response.data);
@@ -112,10 +135,12 @@ function sendMessage() {
 
   const message = {
     from: username,
-    to: "Todos",
+    to: recipient,
     text: messageInputText.value,
-    type: "message"
+    type: visibility
   };
+
+  console.log(message);
 
   const promise = axios.post(`${BACK_END_API}/messages/${MY_UUID}`, message);
   promise.then(response => {
@@ -141,6 +166,30 @@ function openSideMenu() {
 function toogleMenu() {
   document.querySelector(".menu-fundo").classList.toggle("escondido");
   document.querySelector(".menu").classList.toggle("escondido");
+}
+
+function changeVisibility(element) {
+  const previousVisibility = document.querySelector(".visibilidades .selecionado");
+  if (previousVisibility !== null) {
+    previousVisibility.classList.remove("selecionado");
+  }
+
+  const visibilityText = element.innerText;
+  visibilityText === "Todos" ?
+    visibility = "message" : visibility = "private_message";
+
+  element.classList.add("selecionado");
+}
+
+function changeRecipient(element) {
+  const previousVisibility = document.querySelector(".contatos .selecionado");
+  if (previousVisibility !== null) {
+    previousVisibility.classList.remove("selecionado");
+  }
+
+  recipient = element.innerText;
+
+  element.classList.add("selecionado");
 }
 
 enterChat();

@@ -1,6 +1,4 @@
-* {
-  box-sizing: border-box;
-}
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,400;1,500&display=swap");
 
 body {
   display: flex;
@@ -36,18 +34,13 @@ header img {
   margin-bottom: -5px;
 }
 
-header .participants ion-icon {
-  cursor: pointer;
-}
-
 main {
   width: 100%;
   height: 100%;
   margin: 80px 0;
   font-size: 14px;
   overflow: scroll;
-  -ms-overflow-style: none;
-  /* OLHAR SCROLL BAR*/
+  -ms-overflow-style: none; /* OLHAR SCROLL BAR*/
   scrollbar-width: none;
 }
 
@@ -75,7 +68,7 @@ main li {
   background: #ffdede;
 }
 
-.hour {
+.horario {
   margin-right: 5px;
   color: #b8b8b8;
 }
@@ -92,7 +85,7 @@ footer button {
   margin-bottom: 0 0 -5px 5px;
 }
 
-.message-input {
+.entrada-mensagem {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -100,32 +93,35 @@ footer button {
   padding-left: 10px;
 }
 
-.message-input input {
+.entrada-mensagem input {
   margin-bottom: 10px;
-  border: none;
-  outline: none;
-  font-size: 18px;
-  font-weight: 400;
-  font-style: italic;
 }
 
-footer ion-icon {
-  cursor: pointer;
-  font-size: 26px;
-}
-
-.message-input input::placeholder {
+.entrada-mensagem input::placeholder {
   font-style: italic;
   font-size: 16px;
   color: #606060;
 }
 
-.message-input span {
+.entrada-mensagem span {
   font-size: 15px;
   font-weight: 100;
 }
 
-/* ---- menu lateral (bônus) ---- */
+.menu-fundo{
+  background-color: rgba(0,0,0,0.8);
+  width:100%;
+  height: 100%;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:2;
+  transition:all 150ms linear;
+}
+
+.fundo-escondido{
+  display:none;
+}
 
 aside.menu {
   position: fixed;
@@ -138,11 +134,15 @@ aside.menu {
   display: flex;
   flex-direction: column;
   padding: 0 20px;
-  transition: all 150ms linear;
+  transition: all 600ms linear;
   overflow-y: scroll;
 }
 
-aside .titulo-menu {
+aside.menu.escondido {
+  right: -210px;
+}
+
+.titulo-menu {
   text-align: center;
   margin: 20px 0;
   padding: 0 5px;
@@ -168,10 +168,6 @@ aside.menu ion-icon {
   flex-shrink: 0;
 }
 
-aside.menu.escondido {
-  right: -210px;
-}
-
 .check {
   position: absolute;
   right: -5px;
@@ -191,19 +187,10 @@ aside.menu.escondido {
   z-index: 2;
   top: 0;
   right: 0;
-  background: #0009;
+  background: rgba(0, 0, 0, 0.8);
+  transition: all 150ms linear;
 }
 
-.visibilidades li {
-  cursor: pointer;
-}
-
-/* ---- utilitários ---- */
-
-.escondido {
+.fundo-escondido {
   display: none;
-}
-
-strong {
-  font-weight: bold;
 }
