@@ -61,12 +61,10 @@ function renderMessages(messages) {
   const messagesElement = document.querySelector(".messages-container");
   messagesElement.innerHTML = "";
 
-  console.log(messages);
-
-  messages.map(message => {
+  messages.forEach(message => {
     const { type, time, from, to, text } = message;
     if (type === 'message') {
-      return `
+      messagesElement.innerHTML += `
             <li class="conversa-publica">
                 <span class="horario">${time}</span>
                     <strong>${from}</strong>
@@ -76,7 +74,7 @@ function renderMessages(messages) {
             </li>
         `;
     } else if (type === 'status') {
-      return `
+      messagesElement.innerHTML += `
             <li class="entrada-saida">
                 <span class="horario">${time}</span>
                 <strong>${from}</strong>          
@@ -84,18 +82,18 @@ function renderMessages(messages) {
             </li>            
         `;
     } else if (type === "private_message") {
-      return `
-            <li class="conversa-privada">
-                <span class="horario">${time}</span>
-                    <strong>${from}</strong>
-                        <span> para </span>
-                    <strong>${to}: </strong>
-                <span>${text}</span>
-            </li>
-        `;
+      if (to === username || to === "Todos" || from === username) {
+        messagesElement.innerHTML += `
+              <li class="conversa-privada">
+                  <span class="horario">${time}</span>
+                      <strong>${from}</strong>
+                          <span> para </span>
+                      <strong>${to}: </strong>
+                  <span>${text}</span>
+              </li>
+          `;
+      }
     }
-  }).forEach(li => {
-    messagesElement.innerHTML += li;
   });
 
   const lastMessage = document.querySelector('.messages-container li:last-child');
@@ -161,6 +159,10 @@ function sendMessage() {
 function openSideMenu() {
   toogleMenu();
   getParticipants();
+
+  // reseta a mensagem do footer
+  recipient = "Todos";
+  changeFooterMessageStatus();
 }
 
 function toogleMenu() {
@@ -175,10 +177,11 @@ function changeVisibility(element) {
   }
 
   const visibilityText = element.innerText;
-  visibilityText === "Todos" ?
+  visibilityText === "Público" ?
     visibility = "message" : visibility = "private_message";
 
   element.classList.add("selecionado");
+  changeFooterMessageStatus();
 }
 
 function changeRecipient(element) {
@@ -190,6 +193,13 @@ function changeRecipient(element) {
   recipient = element.innerText;
 
   element.classList.add("selecionado");
+  changeFooterMessageStatus();
+}
+
+function changeFooterMessageStatus() {
+  const messageStatus = document.querySelector(".message-input .enviando");
+  messageStatus.innerText =
+    `Enviando para ${recipient} (${visibility === "message" ? "público" : "reservadamente"})`;
 }
 
 enterChat();
