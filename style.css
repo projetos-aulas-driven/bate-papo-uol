@@ -125,8 +125,6 @@ footer ion-icon {
   font-weight: 100;
 }
 
-/* ---- menu lateral (bônus) ---- */
-
 aside.menu {
   position: fixed;
   z-index: 3;
@@ -142,7 +140,7 @@ aside.menu {
   overflow-y: scroll;
 }
 
-aside .titulo-menu {
+aside .title-menu {
   text-align: center;
   margin: 20px 0;
   padding: 0 5px;
@@ -168,7 +166,7 @@ aside.menu ion-icon {
   flex-shrink: 0;
 }
 
-aside.menu.escondido {
+aside.menu.hidden {
   right: -210px;
 }
 
@@ -180,11 +178,11 @@ aside.menu.escondido {
   display: none;
 }
 
-.selecionado .check {
+.selected .check {
   display: inline;
 }
 
-.menu-fundo {
+.menu-background {
   height: 100%;
   width: 100%;
   position: fixed;
@@ -194,13 +192,13 @@ aside.menu.escondido {
   background: #0009;
 }
 
-.visibilidades li {
+.visibilities li {
   cursor: pointer;
 }
 
-/* ---- utilitários ---- */
+/* ---- utility ---- */
 
-.escondido {
+.hidden {
   display: none;
 }
 

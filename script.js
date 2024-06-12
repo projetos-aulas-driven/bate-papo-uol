@@ -14,7 +14,6 @@ function enterChat() {
   enterUsername();
   const promise = axios.post(`${BACK_END_API}/participants/${MY_UUID}`, { name: username });
   promise.then(data => {
-    console.log("Você está connectado ao servidor!")
     idIntervalPing = setInterval(pingServer, TIME_TO_PING_SERVER);
     idIntervalSync = setInterval(syncMessages, TIME_TO_SYNC_MESSAGES);
   })
@@ -103,10 +102,10 @@ function renderMessages(messages) {
 function getParticipants() {
   const promise = axios.get(`${BACK_END_API}/participants/${MY_UUID}`);
   promise.then(({ data: participants }) => {
-    const contactsDiv = document.querySelector(".contatos");
+    const contactsDiv = document.querySelector(".contacts");
 
     contactsDiv.innerHTML =
-      `<li onclick="changeRecipient(this)" class="selecionado">
+      `<li onclick="changeRecipient(this)" class="selected">
         <ion-icon name="people-sharp"></ion-icon> 
         Todos 
         <ion-icon class="check" name="checkmark-outline">
@@ -138,8 +137,6 @@ function sendMessage() {
     type: visibility
   };
 
-  console.log(message);
-
   const promise = axios.post(`${BACK_END_API}/messages/${MY_UUID}`, message);
   promise.then(response => {
     syncMessages();
@@ -166,38 +163,38 @@ function openSideMenu() {
 }
 
 function toogleMenu() {
-  document.querySelector(".menu-fundo").classList.toggle("escondido");
-  document.querySelector(".menu").classList.toggle("escondido");
+  document.querySelector(".menu-background").classList.toggle("hidden");
+  document.querySelector(".menu").classList.toggle("hidden");
 }
 
 function changeVisibility(element) {
-  const previousVisibility = document.querySelector(".visibilidades .selecionado");
+  const previousVisibility = document.querySelector(".visibilities .selected");
   if (previousVisibility !== null) {
-    previousVisibility.classList.remove("selecionado");
+    previousVisibility.classList.remove("selected");
   }
 
   const visibilityText = element.innerText;
   visibilityText === "Público" ?
     visibility = "message" : visibility = "private_message";
 
-  element.classList.add("selecionado");
+  element.classList.add("selected");
   changeFooterMessageStatus();
 }
 
 function changeRecipient(element) {
-  const previousVisibility = document.querySelector(".contatos .selecionado");
+  const previousVisibility = document.querySelector(".contacts .selected");
   if (previousVisibility !== null) {
-    previousVisibility.classList.remove("selecionado");
+    previousVisibility.classList.remove("selected");
   }
 
   recipient = element.innerText;
 
-  element.classList.add("selecionado");
+  element.classList.add("selected");
   changeFooterMessageStatus();
 }
 
 function changeFooterMessageStatus() {
-  const messageStatus = document.querySelector(".message-input .enviando");
+  const messageStatus = document.querySelector(".message-input .sending");
   messageStatus.innerText =
     `Enviando para ${recipient} (${visibility === "message" ? "público" : "reservadamente"})`;
 }

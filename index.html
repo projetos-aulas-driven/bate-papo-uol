@@ -16,18 +16,17 @@
 
 <body>
 
-  <!-- ativar para o bônus (lateral) -->
-  <div class="menu-fundo escondido" onclick="toogleMenu()"></div>
-  <aside class="menu escondido">
-    <h3 class="titulo-menu">Escolha um contato para enviar mensagem:</h3>
-    <ul class="contatos"><!-- preenchido via js --></ul>
-    <h3 class="titulo-menu">Escolha a visibilidade:</h3>
-    <ul class="visibilidades">
-      <li class="visibilidade-publico selecionado" onclick="changeVisibility(this)">
+  <div class="menu-background hidden" onclick="toogleMenu()"></div>
+  <aside class="menu hidden">
+    <h3 class="title-menu">Escolha um contato para enviar mensagem:</h3>
+    <ul class="contacts"><!-- preenchido via js --></ul>
+    <h3 class="title-menu">Escolha a visibilidade:</h3>
+    <ul class="visibilities">
+      <li class="visibility-public selected" onclick="changeVisibility(this)">
         <ion-icon name="lock-open"></ion-icon>Público<ion-icon class="check" name="checkmark-outline">
         </ion-icon>
       </li>
-      <li class="visibilidade-privado" onclick="changeVisibility(this)">
+      <li class="visibility-private" onclick="changeVisibility(this)">
         <ion-icon name="lock-closed"></ion-icon>Reservadamente<ion-icon class="check" name="checkmark-outline">
         </ion-icon>
       </li>
@@ -51,7 +50,7 @@
   <footer>
     <div class="message-input">
       <input placeholder="Escreva aqui..." class="message-text"></input>
-      <span class="enviando">Enviando para Todos (público)</span>
+      <span class="sending">Enviando para Todos (público)</span>
     </div>
     <div onclick="sendMessage()">
       <ion-icon name="paper-plane-outline"></ion-icon>
