@@ -1,4 +1,4 @@
-const MY_UUID = "8cd3fdc8-500a-4436-a113-570253dc7acd";
+const MY_UUID = "a540a9e1-63de-445a-b3f8-0145a2cf85c1";
 const BACK_END_API = "https://mock-api.driven.com.br/api/v6/uol"; // uuid sempre no final
 const TIME_TO_PING_SERVER = 5000;
 const TIME_TO_SYNC_MESSAGES = 3000;
